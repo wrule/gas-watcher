@@ -24,7 +24,10 @@ async function hello() {
   watch(async () => {
     const fee = await provider.getFeeData();
     if (fee.gasPrice != null && fee.maxPriorityFeePerGas != null) {
-      console.log(formatEther((fee.gasPrice + fee.maxPriorityFeePerGas) * 21000n));
+      console.log(formatEther(
+        (fee.gasPrice + fee.maxPriorityFeePerGas) *
+        (21000n)
+      ));
     }
   });
 }
