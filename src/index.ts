@@ -20,7 +20,7 @@ async function hello() {
   watch(async () => {
     const fee = await provider.getFeeData();
     console.log(
-      `${JSON.stringify([fee.gasPrice, fee.maxPriorityFeePerGas, fee.maxFeePerGas])},`
+      `${JSON.stringify([Date.now() ,fee.gasPrice, fee.maxPriorityFeePerGas, fee.maxFeePerGas])},`
     );
   });
 }
