@@ -16,13 +16,22 @@ async function watch(func: () => any, interval = 2000) {
 
 export
 async function hello() {
+  const provider = new JsonRpcProvider(secret.apiKey);
   const mnemonic = Mnemonic.fromPhrase(secret.phrase);
   const addrList = Array(200).fill(0).map((_, index) =>
     HDNodeWallet.fromMnemonic(mnemonic, `m/44'/60'/0'/0/${index}`).address
   );
+  const erc721 = new Contract(
+    '0xf1b33ac32dbc6617f7267a349be6ebb004feccff',
+    ['function balanceOf(address) view returns (uint256)'],
+    provider,
+  );
   for (let i = 0; i < addrList.length; ++i) {
-    console.log('index', i);
     const address = addrList[i];
-    console.log(address);
+    const count = await erc721.balanceOf(address);
+    console.log(i);
+    if (count > 0n) {
+      console.log(address, count);
+    }
   }
 }
